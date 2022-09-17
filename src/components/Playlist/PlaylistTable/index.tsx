@@ -1,56 +1,26 @@
 import { Table, Row, Col, Tooltip, User, Text } from "@nextui-org/react";
 import { IconButton } from "./styling";
+import {millisToMinutesAndSeconds} from "../../../utils";
 
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import InfoIcon from '@mui/icons-material/Info';
 
 const PlaylistTable = ({playlist}: any) => {
   const columns = [
     { name: "TITLE", uid: "name" },
     { name: "ALBUM", uid: "album" },
-    { name: "POPULARITY", uid: "popularity" },
-    { name: <AccessTimeIcon/>, uid: "duration" },
+    { name: 
+        <Row align="center">
+          POPULARITY
+          <Tooltip content={"Spotify's Internal popularity metric. I have no idea what it means"}>
+            <InfoIcon style={{marginLeft: "$4"}} fontSize="small"/>
+          </Tooltip>
+        </Row>,
+       uid: "popularity" },
+    { name: <Row align="center"><AccessTimeIcon fontSize="small"/></Row>, uid: "duration" },
     { name: "ACTIONS", uid: "actions" },
   ];
-  // const users = [
-  //   {
-  //     id: 1,
-  //     name: "Song 1",
-  //     artists: ["Deez", "Nutz"],
-  //     album: {
-  //       name: "Wanking",
-  //       image: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-  //     },
-  //     popularity: 1,
-  //     duration: "2:30",
-  //     url: "https://fast.com"
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Song 2",
-  //     artists: ["Bofa"],
-  //     album: {
-  //       name: "I<3Chu",
-  //       image: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-  //     },
-  //     duration: "5:50",
-  //     popularity: 5,
-  //     url: "https://fast.com"
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Song 3",
-  //     artists: ["Slippin", "Jimmy"],
-  //     album: {
-  //       name: "DUN", 
-  //       image: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-  //     },
-  //     duration: "1:30",
-  //     popularity: 3,
-  //     url: "https://fast.com"
-  //   },
-  
-  // ];
 
   const renderCell = (song: any, columnKey: any) => {
     const cellValue = song[columnKey];
@@ -71,7 +41,7 @@ const PlaylistTable = ({playlist}: any) => {
       
       case "duration":
         return (
-          <Text>{cellValue}</Text>
+          <Text>{millisToMinutesAndSeconds(cellValue)}</Text>
         );
 
       case "actions":
@@ -83,7 +53,7 @@ const PlaylistTable = ({playlist}: any) => {
                 onClick={() => window.open(song.url)}
               >
                 <IconButton>
-                  <OpenInNewIcon />
+                  <OpenInNewIcon fontSize="small" />
                 </IconButton>
               </Tooltip>
             </Col>
