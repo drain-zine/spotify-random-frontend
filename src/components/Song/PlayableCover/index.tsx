@@ -34,6 +34,8 @@ const PlayableCover = ({name, image, audioUrl, size = 100}: PlayableCoverProps):
         if(audio === null) return;
         if(isPlayingUrl !== audioUrl){
             setIsPlaying(false);
+
+            // no audio.stop() :(
             audio.pause();
             audio.currentTime = 0;
         };
