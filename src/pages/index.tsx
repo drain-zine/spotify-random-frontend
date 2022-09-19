@@ -1,6 +1,5 @@
 import { API } from '../api';
-import PlaylistTable from '../components/Playlist/PlaylistTable';
-import { Text,Button } from "@nextui-org/react";
+import Main from '../screens/main';
 import { Playlist } from '../type';
 
 interface HomeProps{
@@ -9,12 +8,7 @@ interface HomeProps{
 
 const Home = ({playlist}: HomeProps): JSX.Element => {
   return (
-      <main>
-       {/* {JSON.stringify(playlist)} */}
-       <PlaylistTable playlist={playlist}/>
-       <Text>Hello world!</Text>
-       <Button>NextUI Button</Button>
-      </main>
+      <Main playlist={playlist} />
   );
 }
 
