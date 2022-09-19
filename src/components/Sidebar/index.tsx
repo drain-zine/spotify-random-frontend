@@ -1,8 +1,33 @@
+import { useEffect, useState } from "react";
 import { Container, Row, Text } from "@nextui-org/react";
+const { motion, useScroll, useSpring } = require("framer-motion");
 
 const Sidebar = () => {
+    const { scrollYProgress } = useScroll();
+    const [test, setTest] = useState(0);
+    const scrollY = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
+
+    useEffect(() => {
+        return scrollY.onChange((latest: number) => setTest(latest * 100))
+    }, []);
+
     return (
-        <Container>
+        <Container css={{position: "relative"}}>
+            <motion.div
+                style={{
+                    height: `${test}%`,
+                    width: 1,
+                    position: "absolute",
+                    transform: "translate(-50%)",
+                    left: "50%",
+                    top: 0,
+                    background: "var(--nextui-colors-text)"
+                }}
+            />
             <Row>
                 <Text
                     h1
@@ -12,7 +37,7 @@ const Sidebar = () => {
             <div style={{
                 width: "100%",
                 height: 2,
-                background: "black",
+                background: "var(--nextui-colors-text)",
                 marginLeft: "-3rem"
             }}>
 
