@@ -86,6 +86,9 @@ const PlaylistTable = ({playlist}: PlaylistTableProps): JSX.Element => {
             hideHeader={column.uid === "actions"}
             align={column.uid === "actions" ? "center" : "start"}
             maxWidth={(column.uid === "name" || column.uid === "album") ? "30%" : undefined}
+            css={{
+              wordWrap: "break-word"
+            }}
           >
             {column.name}
           </Table.Column>
