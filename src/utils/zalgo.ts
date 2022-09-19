@@ -165,13 +165,9 @@ export const generateDescription = () => {
 
     const nWords = getRandomInt(10, 17);
 
-    const nPunctuation = nSentences;
-
-    console.log(`words: ${nWords}, sentences: ${nSentences}, punc: ${nPunctuation}`);
 
     const words = [...Array(nWords)].map(() => getRandomString(getRandomInt(1, 10)));
     const sentences = splitToChunks(words, nSentences);
-    console.log(sentences);
 
     const description = sentences.map((sentence, idx) => {
         const sentenceString = sentence.join(" ");

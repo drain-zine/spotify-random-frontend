@@ -18,4 +18,15 @@ export class API{
         const res = await this.axios.get(`/spotify/playlist${n !== undefined ? `?n=${n}` : `` }`);
         return res.data;
     }
+
+    public async createPlaylist(title: string, description: string, imageUrl: string, trackIds: string[], token: string){
+        const res = await this.axios.post(`/spotify/create-playlist`, {
+            title,
+            description,
+            imageUrl,
+            trackIds,
+            token
+        });
+        return res.data;
+    }
 }

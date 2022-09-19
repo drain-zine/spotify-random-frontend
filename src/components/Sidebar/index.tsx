@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Text } from "@nextui-org/react";
+import { useSelector } from "react-redux";
+import { selectIsPlaylistLoading } from "../../slice/playlist";
 const { motion, useScroll, useSpring } = require("framer-motion");
 
 const Sidebar = () => {
     const { scrollYProgress } = useScroll();
+    const isPlaylistLoading = useSelector(selectIsPlaylistLoading);
     const [test, setTest] = useState(0);
     const scrollY = useSpring(scrollYProgress, {
         stiffness: 100,
@@ -12,8 +15,8 @@ const Sidebar = () => {
     });
 
     useEffect(() => {
-        return scrollY.onChange((latest: number) => setTest(latest * 100))
-    }, []);
+        return scrollY.onChange((latest: number) => setTest(isPlaylistLoading ? 0 : latest * 100))
+    }, [isPlaylistLoading]);
 
     return (
         <Container css={{position: "relative"}}>
