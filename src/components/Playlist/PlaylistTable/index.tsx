@@ -20,12 +20,9 @@ const PlaylistTable = ({playlist}: PlaylistTableProps): JSX.Element => {
     { name: "ALBUM", uid: "album" },
     { name: 
         <Row align="center">
-          POPULARITY
-          <Text color="inherit" css={{marginLeft: "$2", lineHeight: "1"}} size="$xs">
             <Tooltip content={"Spotify's Internal popularity metric. I have no idea what it means"}>
-              <InfoIcon style={{marginLeft: "$4", marginTop: "auto", marginBottom: "auto"}} fontSize="inherit"/>
+            POPULARITY*
             </Tooltip>
-          </Text>
         </Row>,
        uid: "popularity" },
     { name: <Row align="center"><AccessTimeIcon fontSize="small"/></Row>, uid: "duration" },

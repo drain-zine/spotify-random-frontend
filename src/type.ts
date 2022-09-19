@@ -23,3 +23,9 @@ export type Song = {
 };
 
 export type Playlist = Song[];
+
+export type PlaylistMeta = {
+    name: string,
+    description: string,
+    image: string
+};
