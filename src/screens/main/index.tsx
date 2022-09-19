@@ -9,8 +9,10 @@ interface MainProps{
 
   
 const Main = ({playlist}: MainProps): JSX.Element => {
+    const margin = "$8";
+
     return (
-        <Container fluid css={{maxWidth: "calc(100% - 2 * $8)", padding: 0, margin: "0 $8"}}>
+        <Container fluid css={{maxWidth: `calc(100% - 2 * ${margin})`, padding: 0, margin: `0 ${margin}`}}>
             <Grid.Container>
                 <Grid sm={4}>
                     <Sidebar/>
