@@ -59,6 +59,11 @@ const PlaylistMeta = ({meta}: PlaylistMetaProps) => {
                     <Button 
                         disabled={isPlaylistLoading}
                         auto
+                        css={{
+                            "& > .nextui-button-text":{
+                                color: "$secondary"
+                            }
+                        }}
                         >Save</Button>
                 </div>
             </Grid>
