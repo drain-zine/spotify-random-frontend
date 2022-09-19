@@ -1,14 +1,8 @@
-import PlaylistTable from '../../components/Playlist/PlaylistTable';
-import { Playlist } from '../../type';
 import { Container, Grid } from "@nextui-org/react";
 import Sidebar from '../../components/Sidebar';
+import PlaylistContainer from '../../components/Playlist';
 
-interface MainProps{
-    playlist: Playlist
-};
-
-  
-const Main = ({playlist}: MainProps): JSX.Element => {
+const Main = (): JSX.Element => {
     const margin = "$8";
 
     return (
@@ -18,13 +12,10 @@ const Main = ({playlist}: MainProps): JSX.Element => {
                     <Sidebar/>
                 </Grid>
                 <Grid sm={8}>
-                    <Container fluid css={{padding: 0, margin: 0}}>
-                        <PlaylistTable playlist={playlist}/>
-                    </Container>
+                    <PlaylistContainer/>
                 </Grid>
             </Grid.Container>
-            </Container>
-         
+        </Container>
     );
 };
 

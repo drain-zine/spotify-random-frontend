@@ -1,32 +1,20 @@
 import { API } from '../api';
+import { useEffect } from "react";
 import Main from '../screens/main';
-import { Playlist } from '../type';
+import { useDispatch } from 'react-redux';
+import { getRandomPlaylist } from '../slice/playlist';
+import { AppDispatch } from '../store';
 
-interface HomeProps{
-  playlist: Playlist
-};
+const Home = (): JSX.Element => {
+  const dispatch = useDispatch<AppDispatch>();
 
-const Home = ({playlist}: HomeProps): JSX.Element => {
+  useEffect(() => {
+    dispatch(getRandomPlaylist());
+  }, []);
+
   return (
-      <Main playlist={playlist} />
+      <Main />
   );
-}
-
-export async function getServerSideProps() {
-  const api = new API();
-  let playlist;
-
-  try{
-    playlist = await api.getRandomPlaylist();
-  } catch {
-    playlist = "Not Found :(";
-  }
-
-  return {
-    props: {
-      playlist
-    }
-  };
 }
 
 export default Home;

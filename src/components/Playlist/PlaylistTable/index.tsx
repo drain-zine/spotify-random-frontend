@@ -6,7 +6,6 @@ import SongRow from "../../Song/SongRow";
 
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import InfoIcon from '@mui/icons-material/Info';
 
 import { Playlist, Song } from "../../../type";
 
@@ -29,7 +28,7 @@ const PlaylistTable = ({playlist}: PlaylistTableProps): JSX.Element => {
     { name: "ACTIONS", uid: "actions" },
   ];
 
-  const renderCell = useCallback((song: Song, columnKey: string) => {
+  const renderCell = useCallback((song: Song, columnKey: any) => {
     const { album } = song;
 
     switch (columnKey) {
@@ -70,14 +69,15 @@ const PlaylistTable = ({playlist}: PlaylistTableProps): JSX.Element => {
     }
   }, []);
 
-  return (
+  return ( 
     <Table
-      aria-label="Example table with custom cells"
-      css={{
-        height: "auto",
+      aria-label="Random Spotify Playlist"
+      containerCss={{
         minWidth: "100%",
+        maxWidth: "100%"
       }}
       selectionMode="none"
+      shadow={false}
     >
       <Table.Header columns={columns}>
         {(column) => (
@@ -85,6 +85,7 @@ const PlaylistTable = ({playlist}: PlaylistTableProps): JSX.Element => {
             key={column.uid}
             hideHeader={column.uid === "actions"}
             align={column.uid === "actions" ? "center" : "start"}
+            maxWidth={(column.uid === "name" || column.uid === "album") ? "30%" : undefined}
           >
             {column.name}
           </Table.Column>
