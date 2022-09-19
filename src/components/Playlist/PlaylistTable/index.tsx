@@ -1,48 +1,57 @@
-import { Table, Row, Col, Tooltip, User, Text } from "@nextui-org/react";
+import { useCallback } from "react";
+import { Table, Row, Col, Tooltip, Text } from "@nextui-org/react";
 import { IconButton } from "./styling";
 import {millisToMinutesAndSeconds} from "../../../utils";
+import SongRow from "../../Song/SongRow";
 
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import InfoIcon from '@mui/icons-material/Info';
 
-const PlaylistTable = ({playlist}: any) => {
+import { Playlist, Song } from "../../../type";
+
+interface PlaylistTableProps{
+  playlist: Playlist
+};
+
+const PlaylistTable = ({playlist}: PlaylistTableProps): JSX.Element => {
   const columns = [
     { name: "TITLE", uid: "name" },
     { name: "ALBUM", uid: "album" },
     { name: 
         <Row align="center">
           POPULARITY
-          <Tooltip content={"Spotify's Internal popularity metric. I have no idea what it means"}>
-            <InfoIcon style={{marginLeft: "$4"}} fontSize="small"/>
-          </Tooltip>
+          <Text color="inherit" css={{marginLeft: "$2", lineHeight: "1"}} size="$xs">
+            <Tooltip content={"Spotify's Internal popularity metric. I have no idea what it means"}>
+              <InfoIcon style={{marginLeft: "$4", marginTop: "auto", marginBottom: "auto"}} fontSize="inherit"/>
+            </Tooltip>
+          </Text>
         </Row>,
        uid: "popularity" },
     { name: <Row align="center"><AccessTimeIcon fontSize="small"/></Row>, uid: "duration" },
     { name: "ACTIONS", uid: "actions" },
   ];
 
-  const renderCell = (song: any, columnKey: any) => {
-    const cellValue = song[columnKey];
+  const renderCell = useCallback((song: Song, columnKey: string) => {
+    const { album } = song;
+
     switch (columnKey) {
       case "name":
-        const { album, artists } = song;
         return (
-          <User squared src={album.image} name={cellValue} css={{ p: 0, borderRadius: 0 }}>
-            {artists.map((artist: any, idx: number) => `${artist.name}${idx === artists.length - 1 ? `` : `, `}`)}
-          </User>
+          <SongRow song={song} />
         );
       case "album":
         return (
           <Text b size={14} css={{ tt: "capitalize" }}>
-            {cellValue.name}
+            {album.name}
           </Text>
         );
       
       case "duration":
-        return (
-          <Text>{millisToMinutesAndSeconds(cellValue)}</Text>
-        );
+        return millisToMinutesAndSeconds(song.duration);
+
+      case "popularity":
+        return song.popularity;
 
       case "actions":
         return (
@@ -60,9 +69,10 @@ const PlaylistTable = ({playlist}: any) => {
           </Row>
         );
       default:
-        return cellValue;
+        return <></>;
     }
-  };
+  }, []);
+
   return (
     <Table
       aria-label="Example table with custom cells"

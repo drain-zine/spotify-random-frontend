@@ -1,10 +1,13 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
 import { API } from '../api';
 import PlaylistTable from '../components/Playlist/PlaylistTable';
 import { Text,Button } from "@nextui-org/react";
+import { Playlist } from '../type';
 
-const Home: NextPage = ({playlist}: any) => {
+interface HomeProps{
+  playlist: Playlist
+};
+
+const Home = ({playlist}: HomeProps): JSX.Element => {
   return (
       <main>
        {/* {JSON.stringify(playlist)} */}

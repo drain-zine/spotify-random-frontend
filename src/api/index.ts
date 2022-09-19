@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Song, Playlist } from "../type";
 
 export class API{
     private readonly baseURL = process.env.API_URL;
@@ -8,12 +9,12 @@ export class API{
 
     constructor(){}
 
-    public async getRandomSong(){
+    public async getRandomSong(): Promise<Song>{
         const res = await this.axios.get('/spotify/song');
         return res.data;
     }
 
-    public async getRandomPlaylist(n?: number){
+    public async getRandomPlaylist(n?: number): Promise<Playlist>{
         const res = await this.axios.get(`/spotify/playlist${n !== undefined ? `?n=${n}` : `` }`);
         return res.data;
     }
