@@ -42,7 +42,7 @@ const PlaylistTable = ({playlist}: PlaylistTableProps): JSX.Element => {
         );
       case "album":
         return (
-          <Text b size={14} css={{ tt: "capitalize" }}>
+          <Text b size={14}>
             {album.name}
           </Text>
         );
