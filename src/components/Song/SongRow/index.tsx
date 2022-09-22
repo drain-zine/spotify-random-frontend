@@ -9,9 +9,9 @@ interface SongRowProps{
 const SongRow = ({song}: SongRowProps): JSX.Element => {
     const { album, artists } = song;
     return (
-        <Row>
+        <Row css={{overflow: "hidden", textOverflow: "ellipsis"}}>
             <PlayableCover name={album.name} image={album.image} audioUrl={song.preview_url} />
-            <Col css={{marginLeft: "$4"}}>
+            <Col css={{marginLeft: "$4", whiteSpace: "break-spaces"}}>
                 <Col>
                     <Text weight="semibold" css={{fontSize: 14}} >{song.name}</Text>
                 </Col>
