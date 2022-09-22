@@ -20,7 +20,7 @@ const PlaylistTable = ({playlist}: PlaylistTableProps): JSX.Element => {
     { name: 
         <Row align="center">
             <Tooltip content={"Spotify's Internal popularity metric. I have no idea what it means"}>
-            POPULARITY*
+            POPL*
             </Tooltip>
         </Row>,
        uid: "popularity" },
@@ -72,6 +72,9 @@ const PlaylistTable = ({playlist}: PlaylistTableProps): JSX.Element => {
   return ( 
     <Table
       aria-label="Random Spotify Playlist"
+      css={{
+        tableLayout: "fixed"
+      }}
       containerCss={{
         minWidth: "100%",
         maxWidth: "100%"
@@ -85,9 +88,10 @@ const PlaylistTable = ({playlist}: PlaylistTableProps): JSX.Element => {
             key={column.uid}
             hideHeader={column.uid === "actions"}
             align={column.uid === "actions" ? "center" : "start"}
-            maxWidth={(column.uid === "name" || column.uid === "album") ? "30%" : undefined}
             css={{
-              wordWrap: "break-word"
+              wordWrap: "break-word",
+              width: (column.uid === "name" || column.uid === "album") ? "40%" : 
+                  column.uid === "actions" ? "5%" : undefined
             }}
           >
             {column.name}
