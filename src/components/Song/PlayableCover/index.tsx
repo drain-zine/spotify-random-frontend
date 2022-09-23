@@ -10,10 +10,11 @@ interface PlayableCoverProps{
     name: string,
     image: string,
     audioUrl: string,
-    size?: number
+    size?: number,
+    albumName?: string
 }
 
-const PlayableCover = ({name, image, audioUrl, size = 100}: PlayableCoverProps): JSX.Element => {
+const PlayableCover = ({name, image, audioUrl, size = 100, albumName}: PlayableCoverProps): JSX.Element => {
     const [isHover, setIsHover] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
 

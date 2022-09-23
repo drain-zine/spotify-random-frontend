@@ -2,6 +2,7 @@ import { Text, Loading, Grid, Image, Row, Container, Button } from "@nextui-org/
 import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API } from "../../../api";
+import { useIsPhone } from "../../../hooks/useMediaQuery";
 import { getRandomPlaylist, selectIsPlaylistLoading, selectPlaylist } from "../../../slice/playlist";
 import { AppDispatch } from "../../../store";
 import { PlaylistMeta } from "../../../type";
@@ -22,6 +23,7 @@ const PlaylistMeta = ({meta}: PlaylistMetaProps) => {
     const tempImgUrl = 'https://farm4.staticflickr.com/3851/14924040227_fe0a2ceb18.jpg';
     const playlist = useSelector(selectPlaylist);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const isPhone = useIsPhone();
     
     const createPlaylist = async() => {
         const popup = getAuthPopup(`${process.env.NEXT_PUBLIC_API_URL}/spotify/auth`);
@@ -43,7 +45,7 @@ const PlaylistMeta = ({meta}: PlaylistMetaProps) => {
     }
 
     return(
-        <Grid.Container css={{marginTop: "15vh"}}>
+        <Grid.Container css={{marginTop: "15vh", "@xsMax": {justifyContent: "center"}}}>
             <Grid md={4}>
                 <Image
                     height={300}
@@ -54,7 +56,7 @@ const PlaylistMeta = ({meta}: PlaylistMetaProps) => {
                     //objectFit="fill"
                 />
             </Grid>
-            <Grid md={6} justify="center" alignItems="center" css={{position: "relative"}}>
+            <Grid md={6} justify="center" alignItems="center" css={{position: "relative", "@xsMax": {marginTop: "$4"}}}>
                 <Container>
                     <Row> 
                         <Text
@@ -67,12 +69,15 @@ const PlaylistMeta = ({meta}: PlaylistMetaProps) => {
                             size={16}
                         >{tempDescription}</Text>
                     </Row>
-                </Container>
-                <div style={{
+                    <Row css={{
                     display: "flex",
-                    position: "absolute", 
-                    bottom: "0", 
-                    left: "1.5rem"}}>
+                    marginTop: "$12",
+                    "@xsMin": {
+                        position: "absolute", 
+                        bottom: "0", 
+                        left: "1.5rem"
+                    }
+                    }}>
                     <Button 
                         onClick={() => dispatch(getRandomPlaylist())}
                         disabled={isPlaylistLoading}
@@ -94,7 +99,8 @@ const PlaylistMeta = ({meta}: PlaylistMetaProps) => {
                             <Loading />
                             : "Save" 
                     }</Button>
-                </div>
+                </Row>
+                </Container>
             </Grid>
         </Grid.Container>
     )

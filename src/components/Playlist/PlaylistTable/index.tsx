@@ -8,13 +8,16 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 import { Playlist, Song } from "../../../type";
+import { useIsPhone } from "../../../hooks/useMediaQuery";
 
 interface PlaylistTableProps{
   playlist: Playlist
 };
 
 const PlaylistTable = ({playlist}: PlaylistTableProps): JSX.Element => {
-  const columns = [
+  const isPhone = useIsPhone();
+
+  const columns = !isPhone ? [
     { name: "TITLE", uid: "name" },
     { name: "ALBUM", uid: "album" },
     { name: 
@@ -25,6 +28,16 @@ const PlaylistTable = ({playlist}: PlaylistTableProps): JSX.Element => {
         </Row>,
        uid: "popularity" },
     { name: <Row align="center"><AccessTimeIcon fontSize="small"/></Row>, uid: "duration" },
+    { name: "ACTIONS", uid: "actions" },
+  ] : [
+    { name: "TITLE", uid: "name" },
+    { name: 
+      <Row align="center">
+          <Tooltip trigger={"click"} content={"Spotify's Internal popularity metric. I have no idea what it means"}>
+          POPL*
+          </Tooltip>
+      </Row>,
+     uid: "popularity" },
     { name: "ACTIONS", uid: "actions" },
   ];
 
@@ -90,8 +103,8 @@ const PlaylistTable = ({playlist}: PlaylistTableProps): JSX.Element => {
             align={column.uid === "actions" ? "center" : "start"}
             css={{
               wordWrap: "break-word",
-              width: (column.uid === "name" || column.uid === "album") ? "40%" : 
-                  column.uid === "actions" ? "5%" : undefined
+              width: column.uid === "name" && isPhone ? "75%" : (column.uid === "name" || column.uid === "album") ? "40%" : 
+                  column.uid === "actions" && !isPhone ? "5%" : undefined
             }}
           >
             {column.name}
