@@ -9,18 +9,20 @@ import {
   selectPlaylistMeta,
 } from "../../slice/playlist";
 import { Playlist } from "../../type";
+import { useIsTablet } from "../../hooks/useMediaQuery";
 
 const PlaylistContainer = () => {
   const playlist = useSelector(selectPlaylist);
   const playlistMeta = useSelector(selectPlaylistMeta);
   const isPlaylistLoading = useSelector(selectIsPlaylistLoading);
+  const isTablet = useIsTablet();
 
   return (
     <Container fluid css={{ padding: 0, margin: 0 }}>
       <Row>
         <PlaylistMeta meta={playlistMeta} />
       </Row>
-      <Spacer y={2} />
+      <Spacer y={ isTablet ? 1 : 2} />
       <Row>
         {isPlaylistLoading ? (
           <Loading css={{ left: "50%", marginTop: "15vh" }} />

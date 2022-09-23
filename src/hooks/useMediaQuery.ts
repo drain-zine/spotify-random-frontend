@@ -26,3 +26,10 @@ export const useIsPhone = () => {
   const theme = useTheme();
   return useMediaQuery(theme.theme?.breakpoints.xs.value as string);
 };
+
+// Detect landscape tablet
+export const useIsTablet = () => {
+    const theme = useTheme();
+    return useMediaQuery(theme.theme?.breakpoints.md.value as string);
+  };
+  

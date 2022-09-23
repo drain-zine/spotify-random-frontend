@@ -10,7 +10,7 @@ import {
 import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API } from "../../../api";
-import { useIsPhone } from "../../../hooks/useMediaQuery";
+import { useIsTablet } from "../../../hooks/useMediaQuery";
 import {
   getRandomPlaylist,
   selectIsPlaylistLoading,
@@ -36,7 +36,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
     "https://farm4.staticflickr.com/3851/14924040227_fe0a2ceb18.jpg";
   const playlist = useSelector(selectPlaylist);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const isPhone = useIsPhone();
+  const isTablet = useIsTablet();
 
   const createPlaylist = async () => {
     const popup = getAuthPopup(
@@ -67,7 +67,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
 
   return (
     <Grid.Container
-      css={{ marginTop: "15vh", "@mdMax": { padding: "0 var(--nextui-space-sm)"}, "@xsMax": { justifyContent: "center" } }}
+      css={{ marginTop: isTablet ? "25vh" : "15vh", "@mdMax": { padding: "0 var(--nextui-space-sm)"}, "@xsMax": { justifyContent: "center" } }}
     >
       <Grid md={4}>
         <Image

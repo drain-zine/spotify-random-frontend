@@ -20,6 +20,7 @@ const Sidebar = () => {
     );
   }, [isPlaylistLoading]);
 
+  console.log(test);
   return (
     <Container css={{ position: "relative" }}>
       <motion.div
