@@ -1,18 +1,18 @@
 import { ReactNode } from "react";
 import { NextUIProvider, createTheme } from "@nextui-org/react";
 
-const theme = createTheme({
+const lightTheme = createTheme({
   type: "light",
   theme: {
     colors: {
       primary: "#000000",
       secondary: "#ffffff",
-      gradient: "linear-gradient(112deg, #9510f7, #9510f7)"
+      gradient: "linear-gradient(112deg, #9510f7, #9510f7)",
     },
     fonts: {
-      sans: "Helvetica, Sans-Serif"
+      sans: "Helvetica, Sans-Serif",
     },
-  }
+  },
 });
 
 const darkTheme = createTheme({
@@ -25,15 +25,15 @@ const darkTheme = createTheme({
       foreground: "$white",
       backgroundContrast: "$black",
       secondary: "#000000",
-      gradient: "linear-gradient(112deg, #9510f7, #9510f7)"
+      gradient: "linear-gradient(112deg, #9510f7, #9510f7)",
     },
     fonts: {
-      sans: "Helvetica, Sans-Serif"
+      sans: "Helvetica, Sans-Serif",
     },
-  }
+  },
 });
 
-const NextUITheme = ({ children }: {children: ReactNode}) => {
+const NextUITheme = ({ children }: { children: ReactNode }) => {
   return <NextUIProvider theme={darkTheme}>{children}</NextUIProvider>;
 };
 

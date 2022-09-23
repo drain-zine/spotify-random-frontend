@@ -7,7 +7,7 @@ const makeStore = () =>
   configureStore({
     reducer: {
       [audioSlice.name]: audioSlice.reducer,
-      [playlistSlice.name]: playlistSlice.reducer
+      [playlistSlice.name]: playlistSlice.reducer,
     },
     devTools: true,
   });
