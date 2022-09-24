@@ -1,8 +1,6 @@
 import { Row, Col, Text } from "@nextui-org/react";
 import PlayableCover from "../PlayableCover";
-import { Song } from "../../../type";
-import { useIsPhone } from "../../../hooks/useMediaQuery";
-
+import { Song } from "@type";
 interface SongRowProps {
   song: Song;
   showAlbum?: boolean;

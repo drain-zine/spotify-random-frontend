@@ -8,9 +8,10 @@ import {
   selectIsPlaylistLoading,
   selectPlaylist,
   selectPlaylistMeta,
-} from "../../slice/playlist";
-import { Playlist } from "../../type";
-import { useIsTablet } from "../../hooks/useMediaQuery";
+} from "@redux/slice/playlist";
+import { Playlist } from "@type";
+import { useIsTablet } from "@hooks/useMediaQuery";
+import { content } from "@data/content";
 
 const PlaylistContainer = () => {
   const playlist = useSelector(selectPlaylist);
@@ -26,7 +27,7 @@ const PlaylistContainer = () => {
       <Spacer y={ isTablet ? 1 : 2} />
       <Row css={{justifyContent: isPlaylistLoading && isPlaylistError ? "center": undefined}}>
         {isPlaylistLoading ? isPlaylistError ? 
-          <Text>The information you are trying to access is too powerful for Spotify's Service. Refresh the playlist</Text> :
+          <Text>{content.errorMsg}</Text> :
           <Loading css={{ left: "50%", marginTop: "15vh" }} /> :
           <PlaylistTable playlist={playlist as Playlist} />
         }

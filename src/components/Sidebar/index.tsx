@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Text } from "@nextui-org/react";
 import { useSelector } from "react-redux";
-import { selectIsPlaylistLoading } from "../../slice/playlist";
+import { selectIsPlaylistLoading } from "@redux/slice/playlist";
 const { motion, useScroll, useSpring } = require("framer-motion");
 
 const Sidebar = () => {

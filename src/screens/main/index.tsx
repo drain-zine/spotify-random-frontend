@@ -1,6 +1,6 @@
 import { Container, Grid } from "@nextui-org/react";
-import Sidebar from "../../components/Sidebar";
-import PlaylistContainer from "../../components/Playlist";
+import Sidebar from "@components/Sidebar";
+import PlaylistContainer from "@components/Playlist";
 
 const Main = (): JSX.Element => {
   const margin = "$8";

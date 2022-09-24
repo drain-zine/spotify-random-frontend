@@ -9,19 +9,19 @@ import {
 } from "@nextui-org/react";
 import { useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { API } from "../../../api";
-import { useIsTablet } from "../../../hooks/useMediaQuery";
-import { setIsPlayingUrl } from "../../../slice/audio";
+import { API } from "@api";
+import { useIsTablet } from "@hooks/useMediaQuery";
+import { setIsPlayingUrl } from "@redux/slice/audio";
 import {
   getRandomPlaylist,
   getRandomPlaylistMeta,
   selectIsPlaylistErrored,
   selectIsPlaylistLoading,
   selectPlaylist,
-} from "../../../slice/playlist";
-import { AppDispatch } from "../../../store";
-import { PlaylistMeta } from "../../../type";
-import { getAuthPopup } from "../../../utils/getAuthPopup";
+} from "@redux/slice/playlist";
+import { AppDispatch } from "@redux/store";
+import { PlaylistMeta } from "@type";
+import { getAuthPopup } from "@utils";
 
 interface PlaylistMetaProps {
   meta: PlaylistMeta;

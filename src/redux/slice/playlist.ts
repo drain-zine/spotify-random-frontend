@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AppState } from '../store';
 import { HYDRATE } from 'next-redux-wrapper';
-import { Playlist, PlaylistMeta } from '../type';
-import { API } from '../api';
-import { generateDescription, generateName } from '../utils';
+import { Playlist, PlaylistMeta } from '@type';
+import { API } from '@api';
+import { generateDescription, generateName } from '@utils';
 
 // First, create the thunk
 export const getRandomPlaylist = createAsyncThunk(

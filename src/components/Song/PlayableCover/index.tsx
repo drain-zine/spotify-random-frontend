@@ -3,7 +3,7 @@ import { Text, Col, Image } from "@nextui-org/react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsPlayingUrl, setIsPlayingUrl } from "../../../slice/audio";
+import { selectIsPlayingUrl, setIsPlayingUrl } from "@redux/slice/audio";
 
 interface PlayableCoverProps {
   name: string;

@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import Main from '../screens/main';
+import Main from '@screens/main';
 import { useDispatch } from 'react-redux';
-import { getRandomPlaylist, getRandomPlaylistMeta } from '../slice/playlist';
-import { AppDispatch } from '../store';
+import { getRandomPlaylist, getRandomPlaylistMeta } from '@redux/slice/playlist';
+import { AppDispatch } from '@redux/store';
 import Head from 'next/head';
-import meta from '../data/meta.js';
-import icons from "../data/icons.json";
+import meta from '@data/meta.js';
+import icons from "@data/icons.json";
 
 const Home = (): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();

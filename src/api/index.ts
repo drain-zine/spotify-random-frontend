@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Song, Playlist } from '../type';
+import { Song, Playlist } from '@type';
 
 export class API {
   private readonly baseURL = process.env.NEXT_PUBLIC_API_URL;
