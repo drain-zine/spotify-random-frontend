@@ -9,7 +9,7 @@ export interface AudioState {
 
 // Initial state
 const initialState: AudioState = {
-    isPlayingUrl: "",
+  isPlayingUrl: "",
 };
 
 // Slice
@@ -17,7 +17,6 @@ export const audioSlice = createSlice({
   name: "audio",
   initialState,
   reducers: {
-
     // Action to set isPlayingUrl
     setIsPlayingUrl(state, action) {
       state.isPlayingUrl = action.payload;
@@ -32,7 +31,6 @@ export const audioSlice = createSlice({
         };
       },
     },
-
   },
 });
 
