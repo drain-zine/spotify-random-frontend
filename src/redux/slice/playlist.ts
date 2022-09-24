@@ -10,8 +10,12 @@ export const getRandomPlaylist = createAsyncThunk(
   'playlist/getRandomPlaylist',
   async () => {
     const api = new API();
-    const response = await api.getRandomPlaylist();
-    return response;
+    try{
+      const response = await api.getRandomPlaylist();
+      return response;
+    } catch (err) {
+      throw err;
+    }
   },
 );
 
