@@ -15,6 +15,7 @@ import { setIsPlayingUrl } from "../../../slice/audio";
 import {
   getRandomPlaylist,
   getRandomPlaylistMeta,
+  selectIsPlaylistErrored,
   selectIsPlaylistLoading,
   selectPlaylist,
 } from "../../../slice/playlist";
@@ -29,6 +30,7 @@ interface PlaylistMetaProps {
 const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
   const {name, description, image} = meta;
   const isPlaylistLoading = useSelector(selectIsPlaylistLoading);
+  const isPlaylistErrored = useSelector(selectIsPlaylistErrored);
   const dispatch = useDispatch<AppDispatch>();
   const playlist = useSelector(selectPlaylist);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -117,7 +119,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
           >
             <Button
               onClick={() => refreshPlaylist()}
-              disabled={isPlaylistLoading}
+              disabled={isPlaylistLoading && !isPlaylistErrored}
               auto
               bordered
               css={{ maxWidth: "25%", marginRight: "$4" }}
