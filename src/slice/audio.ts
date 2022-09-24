@@ -21,16 +21,15 @@ export const audioSlice = createSlice({
     setIsPlayingUrl(state, action) {
       state.isPlayingUrl = action.payload;
     },
+  },
 
-    // Special reducer for hydrating the state. Special case for next-redux-wrapper
-    extraReducers: {
-      [HYDRATE]: (state, action) => {
-        return {
-          ...state,
-          ...action.payload.audio,
-        };
-      },
-    },
+  // Special reducer for hydrating the state. Special case for next-redux-wrapper
+  extraReducers: (builder) => {
+    builder.addCase(HYDRATE, (state, action) => {
+      return {
+        ...state,
+      };
+    });
   },
 });
 
