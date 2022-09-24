@@ -1,9 +1,9 @@
-import { useEffect, useCallback, useState, useRef } from "react";
-import { Text, Col, Image } from "@nextui-org/react";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import PauseIcon from "@mui/icons-material/Pause";
-import { useDispatch, useSelector } from "react-redux";
-import { selectIsPlayingUrl, setIsPlayingUrl } from "@redux/slice/audio";
+import { useEffect, useCallback, useState, useRef } from 'react';
+import { Text, Col, Image } from '@nextui-org/react';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsPlayingUrl, setIsPlayingUrl } from '@redux/slice/audio';
 
 interface PlayableCoverProps {
   name: string;
@@ -35,10 +35,10 @@ const PlayableCover = ({
     audio.current = new Audio(audioUrl);
 
     return () => {
-      if(audio.current === null) return;
+      if (audio.current === null) return;
       audio.current.pause();
       audio.current.currentTime = 0;
-    }
+    };
   }, [audioUrl]);
 
   // Pause song if another is playing
@@ -69,8 +69,8 @@ const PlayableCover = ({
     <Col
       css={{
         width: size,
-        position: "relative",
-        "&:hover": { cursor: "pointer" },
+        position: 'relative',
+        '&:hover': { cursor: 'pointer' },
       }}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
@@ -84,21 +84,21 @@ const PlayableCover = ({
         objectFit="cover"
         css={{
           zIndex: 0,
-          filter: isPlaying || isHover ? "brightness(50%)" : undefined,
+          filter: isPlaying || isHover ? 'brightness(50%)' : undefined,
         }}
       />
 
       <div
         style={{
-          position: "absolute",
+          position: 'absolute',
           width: size,
           height: size,
           top: 0,
           left: 0,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "white",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          color: 'white',
           opacity: isPlaying || isHover ? 1 : 0,
         }}
         onClick={() => togglePlaying()}
@@ -110,7 +110,7 @@ const PlayableCover = ({
             <PauseIcon fontSize="large" />
           )
         ) : (
-          <Text size="$xs" css={{ color: "white" }}>
+          <Text size="$xs" css={{ color: 'white' }}>
             No Preview Found
           </Text>
         )}

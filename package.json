@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "dotenv -e .env next dev",
-    "build": "dotenv -e .env next build",
+    "build": "next build",
     "start": "dotenv -e .env next start",
+    "start:prod": "dotenv -e .env.prod next start",
     "lint": "eslint src/**/*.{tsx,ts} --fix",
     "prettier": "prettier -w src/**/*.{tsx,ts}",
     "format": "npm run prettier && npm run lint"

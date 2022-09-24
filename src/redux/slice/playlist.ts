@@ -10,7 +10,7 @@ export const getRandomPlaylist = createAsyncThunk(
   'playlist/getRandomPlaylist',
   async () => {
     const api = new API();
-    try{
+    try {
       const response = await api.getRandomPlaylist();
       return response;
     } catch (err) {
@@ -47,7 +47,7 @@ const initialPlaylistMeta = {
 const initialState: PlaylistState = {
   playlist: [],
   playlistMeta: initialPlaylistMeta,
-  playlistError: false
+  playlistError: false,
 };
 
 // Slice
@@ -100,7 +100,8 @@ export const selectIsPlaylistLoading = (state: AppState) =>
 export const selectIsPlaylistMetaLoading = (state: AppState) =>
   state.playlist.playlistMeta.name === '' ||
   state.playlist.playlistMeta.description === '' ||
-  state.playlist.playlistMeta.image === '' ;
+  state.playlist.playlistMeta.image === '';
 
-export const selectIsPlaylistErrored = (state: AppState) => state.playlist.playlistError;  
+export const selectIsPlaylistErrored = (state: AppState) =>
+  state.playlist.playlistError;
 export default playlistSlice.reducer;

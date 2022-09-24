@@ -1,14 +1,14 @@
-import { useCallback } from "react";
-import { Table, Row, Col, Tooltip, Text } from "@nextui-org/react";
-import { IconButton } from "./styling";
-import { millisToMinutesAndSeconds } from "@utils";
-import SongRow from "@components/Song/SongRow";
+import { useCallback } from 'react';
+import { Table, Row, Col, Tooltip, Text } from '@nextui-org/react';
+import { IconButton } from './styling';
+import { millisToMinutesAndSeconds } from '@utils';
+import SongRow from '@components/Song/SongRow';
 
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
-import { Playlist, Song } from "@type";
-import { useIsPhone } from "@hooks/useMediaQuery";
+import { Playlist, Song } from '@type';
+import { useIsPhone } from '@hooks/useMediaQuery';
 
 interface PlaylistTableProps {
   playlist: Playlist;
@@ -19,8 +19,8 @@ const PlaylistTable = ({ playlist }: PlaylistTableProps): JSX.Element => {
 
   const columns = !isPhone
     ? [
-        { name: "TITLE", uid: "name" },
-        { name: "ALBUM", uid: "album" },
+        { name: 'TITLE', uid: 'name' },
+        { name: 'ALBUM', uid: 'album' },
         {
           name: (
             <Row align="center">
@@ -33,7 +33,7 @@ const PlaylistTable = ({ playlist }: PlaylistTableProps): JSX.Element => {
               </Tooltip>
             </Row>
           ),
-          uid: "popularity",
+          uid: 'popularity',
         },
         {
           name: (
@@ -41,17 +41,17 @@ const PlaylistTable = ({ playlist }: PlaylistTableProps): JSX.Element => {
               <AccessTimeIcon fontSize="small" />
             </Row>
           ),
-          uid: "duration",
+          uid: 'duration',
         },
-        { name: "ACTIONS", uid: "actions" },
+        { name: 'ACTIONS', uid: 'actions' },
       ]
     : [
-        { name: "TITLE", uid: "name" },
+        { name: 'TITLE', uid: 'name' },
         {
           name: (
             <Row align="center">
               <Tooltip
-                trigger={"click"}
+                trigger={'click'}
                 content={
                   "Spotify's Internal popularity metric. I have no idea what it means"
                 }
@@ -60,34 +60,34 @@ const PlaylistTable = ({ playlist }: PlaylistTableProps): JSX.Element => {
               </Tooltip>
             </Row>
           ),
-          uid: "popularity",
+          uid: 'popularity',
         },
-        { name: "ACTIONS", uid: "actions" },
+        { name: 'ACTIONS', uid: 'actions' },
       ];
 
   const renderCell = useCallback((song: Song, columnKey: any) => {
     const { album } = song;
 
     switch (columnKey) {
-      case "name":
+      case 'name':
         return <SongRow song={song} showAlbum={isPhone} />;
-      case "album":
+      case 'album':
         return (
           <Text b size={14}>
             {album.name}
           </Text>
         );
 
-      case "duration":
+      case 'duration':
         return millisToMinutesAndSeconds(song.duration);
 
-      case "popularity":
+      case 'popularity':
         return song.popularity;
 
-      case "actions":
+      case 'actions':
         return (
           <Row justify="center" align="center">
-            <Col css={{ d: "flex" }}>
+            <Col css={{ d: 'flex' }}>
               <Tooltip
                 content="Open In Spotify"
                 onClick={() => window.open(song.url)}
@@ -108,15 +108,15 @@ const PlaylistTable = ({ playlist }: PlaylistTableProps): JSX.Element => {
     <Table
       aria-label="Random Spotify Playlist"
       css={{
-        tableLayout: "fixed",
-        "@smMin": {
+        tableLayout: 'fixed',
+        '@smMin': {
           paddingLeft: 0,
-          paddingRight: 0
-        }
+          paddingRight: 0,
+        },
       }}
       containerCss={{
-        minWidth: "100%",
-        maxWidth: "100%",
+        minWidth: '100%',
+        maxWidth: '100%',
       }}
       selectionMode="none"
       shadow={false}
@@ -125,17 +125,17 @@ const PlaylistTable = ({ playlist }: PlaylistTableProps): JSX.Element => {
         {(column) => (
           <Table.Column
             key={column.uid}
-            hideHeader={column.uid === "actions"}
-            align={column.uid === "actions" ? "center" : "start"}
+            hideHeader={column.uid === 'actions'}
+            align={column.uid === 'actions' ? 'center' : 'start'}
             css={{
-              wordWrap: "break-word",
+              wordWrap: 'break-word',
               width:
-                column.uid === "name" && isPhone
-                  ? "75%"
-                  : column.uid === "name" || column.uid === "album"
-                  ? "40%"
-                  : column.uid === "actions" && !isPhone
-                  ? "5%"
+                column.uid === 'name' && isPhone
+                  ? '75%'
+                  : column.uid === 'name' || column.uid === 'album'
+                  ? '40%'
+                  : column.uid === 'actions' && !isPhone
+                  ? '5%'
                   : undefined,
             }}
           >
