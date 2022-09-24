@@ -22,6 +22,7 @@ import {
 import { AppDispatch } from "@redux/store";
 import { PlaylistMeta } from "@type";
 import { getAuthPopup } from "@utils";
+import { ImageSkeleton } from "./stylist";
 
 interface PlaylistMetaProps {
   meta: PlaylistMeta;
@@ -36,7 +37,10 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isTablet = useIsTablet();
 
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   const refreshPlaylist = useCallback(() => {
+    setIsImageLoaded(false);
     dispatch(getRandomPlaylist());
     dispatch(getRandomPlaylistMeta());
     dispatch(setIsPlayingUrl(""));
@@ -74,14 +78,17 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
     <Grid.Container
       css={{ marginTop: isTablet ? "25vh" : "15vh", "@mdMax": { padding: "0 var(--nextui-space-sm)"}, "@xsMax": { justifyContent: "center" } }}
     >
-      <Grid md={4}>
-        <Image
-          height={300}
-          width={300}
-          src={image}
-          showSkeleton
-          alt={`${meta.name}-cover`}
-        />
+      <Grid md={4} css={{minWidth: 300}}>
+            <Image
+            height={300}
+            width={300}
+            src={image}
+            alt={`${meta.name}-cover`}
+            onLoad={() => setIsImageLoaded(true)} />
+          
+            {!isImageLoaded && <ImageSkeleton/> }
+        
+        
       </Grid>
       <Grid
         md={6}

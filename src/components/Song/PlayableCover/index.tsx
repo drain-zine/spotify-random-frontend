@@ -43,7 +43,6 @@ const PlayableCover = ({
 
   // Pause song if another is playing
   useEffect(() => {
-    console.log(`isPlaying: ${isPlayingUrl}`);
     if (audio.current === null) return;
     if (isPlayingUrl !== audioUrl) {
       setIsPlaying(false);
