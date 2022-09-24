@@ -9,18 +9,20 @@ import {
 } from "@nextui-org/react";
 import { useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { API } from "../../../api";
-import { useIsTablet } from "../../../hooks/useMediaQuery";
-import { setIsPlayingUrl } from "../../../slice/audio";
+import { API } from "@api";
+import { useIsTablet } from "@hooks/useMediaQuery";
+import { setIsPlayingUrl } from "@redux/slice/audio";
 import {
   getRandomPlaylist,
   getRandomPlaylistMeta,
+  selectIsPlaylistErrored,
   selectIsPlaylistLoading,
   selectPlaylist,
-} from "../../../slice/playlist";
-import { AppDispatch } from "../../../store";
-import { PlaylistMeta } from "../../../type";
-import { getAuthPopup } from "../../../utils/getAuthPopup";
+} from "@redux/slice/playlist";
+import { AppDispatch } from "@redux/store";
+import { PlaylistMeta } from "@type";
+import { getAuthPopup } from "@utils";
+import { ImageSkeleton } from "./stylist";
 
 interface PlaylistMetaProps {
   meta: PlaylistMeta;
@@ -29,12 +31,16 @@ interface PlaylistMetaProps {
 const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
   const {name, description, image} = meta;
   const isPlaylistLoading = useSelector(selectIsPlaylistLoading);
+  const isPlaylistErrored = useSelector(selectIsPlaylistErrored);
   const dispatch = useDispatch<AppDispatch>();
   const playlist = useSelector(selectPlaylist);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isTablet = useIsTablet();
 
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   const refreshPlaylist = useCallback(() => {
+    setIsImageLoaded(false);
     dispatch(getRandomPlaylist());
     dispatch(getRandomPlaylistMeta());
     dispatch(setIsPlayingUrl(""));
@@ -70,26 +76,29 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
 
   return (
     <Grid.Container
-      css={{ marginTop: isTablet ? "25vh" : "15vh", "@mdMax": { padding: "0 var(--nextui-space-sm)"}, "@xsMax": { justifyContent: "center" } }}
+      css={{ "@smMin": { marginTop: isTablet ? "25vh" : "15vh" }, "@mdMax": { padding: "0 var(--nextui-space-sm)"}, "@smMax": { justifyContent: "center", marginTop: "$20" }}}
     >
-      <Grid md={4}>
-        <Image
-          height={300}
-          width={300}
-          src={image}
-          showSkeleton
-          alt={`${meta.name}-cover`}
-        />
+      <Grid md={4} css={{minWidth: 300, position: "relative"}}>
+            <Image
+            height={300}
+            width={300}
+            src={image}
+            alt={`${meta.name}-cover`}
+            onLoad={() => setIsImageLoaded(true)} />
+          
+            {!isImageLoaded && <ImageSkeleton/> }
+        
+        
       </Grid>
       <Grid
         md={6}
         justify="center"
         alignItems="center"
-        css={{ position: "relative", "@xsMax": { marginTop: "$4" } }}
+        css={{ position: "relative", "@smMax": { marginTop: "$4", maxWidth: 350 }, "@smMin": { maxWidth: "calc(100% - 300px)"} }}
       >
-        <Container css={{"@mdMax": { padding: 0}}}>
+        <Container css={{"@smMax": { padding: 0}}}>
           <Row css={{
-              "@xsMax": {
+              "@smMax": {
                   margin: "$5 0",
                   justifyContent: "center"
               },
@@ -108,7 +117,10 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
             css={{
               display: "flex",
               marginTop: "$12",
-              "@mdMin": {
+              "@smMax": {
+                justifyContent: "center",
+              },
+              "@smMin": {
                 position: "absolute",
                 bottom: "0",
                 left: "1.5rem",
@@ -117,7 +129,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
           >
             <Button
               onClick={() => refreshPlaylist()}
-              disabled={isPlaylistLoading}
+              disabled={isPlaylistLoading && !isPlaylistErrored}
               auto
               bordered
               css={{ maxWidth: "25%", marginRight: "$4" }}

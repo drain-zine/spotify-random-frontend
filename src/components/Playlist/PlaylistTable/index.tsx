@@ -1,14 +1,14 @@
 import { useCallback } from "react";
 import { Table, Row, Col, Tooltip, Text } from "@nextui-org/react";
 import { IconButton } from "./styling";
-import { millisToMinutesAndSeconds } from "../../../utils";
-import SongRow from "../../Song/SongRow";
+import { millisToMinutesAndSeconds } from "@utils";
+import SongRow from "@components/Song/SongRow";
 
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 
-import { Playlist, Song } from "../../../type";
-import { useIsPhone } from "../../../hooks/useMediaQuery";
+import { Playlist, Song } from "@type";
+import { useIsPhone } from "@hooks/useMediaQuery";
 
 interface PlaylistTableProps {
   playlist: Playlist;
@@ -70,7 +70,7 @@ const PlaylistTable = ({ playlist }: PlaylistTableProps): JSX.Element => {
 
     switch (columnKey) {
       case "name":
-        return <SongRow song={song} />;
+        return <SongRow song={song} showAlbum={isPhone} />;
       case "album":
         return (
           <Text b size={14}>
@@ -109,6 +109,10 @@ const PlaylistTable = ({ playlist }: PlaylistTableProps): JSX.Element => {
       aria-label="Random Spotify Playlist"
       css={{
         tableLayout: "fixed",
+        "@smMin": {
+          paddingLeft: 0,
+          paddingRight: 0
+        }
       }}
       containerCss={{
         minWidth: "100%",

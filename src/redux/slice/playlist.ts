@@ -1,17 +1,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AppState } from '../store';
 import { HYDRATE } from 'next-redux-wrapper';
-import { Playlist, PlaylistMeta } from '../type';
-import { API } from '../api';
-import { generateDescription, generateName } from '../utils';
+import { Playlist, PlaylistMeta } from '@type';
+import { API } from '@api';
+import { generateDescription, generateName } from '@utils';
 
 // First, create the thunk
 export const getRandomPlaylist = createAsyncThunk(
   'playlist/getRandomPlaylist',
   async () => {
     const api = new API();
-    const response = await api.getRandomPlaylist();
-    return response;
+    try{
+      const response = await api.getRandomPlaylist();
+      return response;
+    } catch (err) {
+      throw err;
+    }
   },
 );
 
@@ -31,6 +35,7 @@ export const getRandomPlaylistMeta = createAsyncThunk(
 export interface PlaylistState {
   playlist: Playlist;
   playlistMeta: PlaylistMeta;
+  playlistError: boolean;
 }
 
 const initialPlaylistMeta = {
@@ -42,6 +47,7 @@ const initialPlaylistMeta = {
 const initialState: PlaylistState = {
   playlist: [],
   playlistMeta: initialPlaylistMeta,
+  playlistError: false
 };
 
 // Slice
@@ -59,7 +65,12 @@ export const playlistSlice = createSlice({
   },
   // Special reducer for hydrating the state. Special case for next-redux-wrapper
   extraReducers: (builder) => {
+    builder.addCase(getRandomPlaylist.rejected, (state, action) => {
+      state.playlistError = true;
+      state.playlist = [];
+    });
     builder.addCase(getRandomPlaylist.pending, (state, action) => {
+      state.playlistError = false;
       state.playlist = [];
     });
     builder.addCase(getRandomPlaylist.fulfilled, (state, action) => {
@@ -86,4 +97,6 @@ export const selectPlaylistMeta = (state: AppState) =>
   state.playlist.playlistMeta;
 export const selectIsPlaylistLoading = (state: AppState) =>
   state.playlist.playlist.length === 0;
+
+export const selectIsPlaylistErrored = (state: AppState) => state.playlist.playlistError;  
 export default playlistSlice.reducer;

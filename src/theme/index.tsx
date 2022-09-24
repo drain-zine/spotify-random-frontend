@@ -27,6 +27,9 @@ const darkTheme = createTheme({
       secondary: '#000000',
       gradient: 'linear-gradient(112deg, #9510f7, #9510f7)',
     },
+    breakpoints: {
+      md: '1181px',
+    },
     fonts: {
       sans: 'Helvetica, Sans-Serif',
     },
