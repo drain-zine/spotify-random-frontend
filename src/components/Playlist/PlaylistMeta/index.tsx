@@ -129,7 +129,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
           >
             <Button
               onClick={() => refreshPlaylist()}
-              disabled={isPlaylistLoading && !isPlaylistErrored}
+              disabled={(isPlaylistLoading && !isPlaylistErrored) || isSubmitting}
               auto
               bordered
               css={{ maxWidth: "25%", marginRight: "$4" }}
