@@ -117,7 +117,9 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
             css={{
               display: "flex",
               marginTop: "$12",
-              justifyContent: "center",
+              "@smMax": {
+                justifyContent: "center",
+              },
               "@smMin": {
                 position: "absolute",
                 bottom: "0",
