@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, useRef } from "react";
 import { Text, Col, Image } from "@nextui-org/react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -26,34 +26,41 @@ const PlayableCover = ({
   const isPlayingUrl = useSelector(selectIsPlayingUrl);
   const dispatch = useDispatch();
 
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+  const audio = useRef<HTMLAudioElement | null>(null);
 
   // Init audio player
   useEffect(() => {
     if (audioUrl === null) return;
 
-    setAudio(new Audio(audioUrl));
+    audio.current = new Audio(audioUrl);
+
+    return () => {
+      if(audio.current === null) return;
+      audio.current.pause();
+      audio.current.currentTime = 0;
+    }
   }, [audioUrl]);
 
   // Pause song if another is playing
   useEffect(() => {
-    if (audio === null) return;
+    console.log(`isPlaying: ${isPlayingUrl}`);
+    if (audio.current === null) return;
     if (isPlayingUrl !== audioUrl) {
       setIsPlaying(false);
 
       // no audio.stop() :(
-      audio.pause();
-      audio.currentTime = 0;
+      audio.current.pause();
+      audio.current.currentTime = 0;
     }
-  }, [audio, isPlayingUrl]);
+  }, [audio, audioUrl, isPlayingUrl]);
 
   // Toggle playing
   const togglePlaying = useCallback(() => {
-    if (audio === null) return;
+    if (audio.current === null) return;
 
     const toggle = !isPlaying;
 
-    toggle ? audio.play() : audio.pause();
+    toggle ? audio.current.play() : audio.current.pause();
 
     setIsPlaying(toggle);
     dispatch(setIsPlayingUrl(audioUrl));
