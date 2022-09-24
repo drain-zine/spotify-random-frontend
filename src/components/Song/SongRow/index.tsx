@@ -5,10 +5,10 @@ import { useIsPhone } from "../../../hooks/useMediaQuery";
 
 interface SongRowProps {
   song: Song;
+  showAlbum?: boolean;
 }
 
-const SongRow = ({ song }: SongRowProps): JSX.Element => {
-  const isPhone = useIsPhone();
+const SongRow = ({ song, showAlbum = false }: SongRowProps): JSX.Element => {
   const { album, artists } = song;
   return (
     <Row css={{ overflow: "hidden", textOverflow: "ellipsis" }}>
@@ -23,7 +23,7 @@ const SongRow = ({ song }: SongRowProps): JSX.Element => {
             {song.name}
           </Text>
         </Col>
-        {isPhone && (
+        {showAlbum && (
           <Col>
             <Text weight="medium" css={{ fontSize: 14 }}>
               {album.name}

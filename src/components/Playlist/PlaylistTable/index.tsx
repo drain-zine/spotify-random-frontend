@@ -70,7 +70,7 @@ const PlaylistTable = ({ playlist }: PlaylistTableProps): JSX.Element => {
 
     switch (columnKey) {
       case "name":
-        return <SongRow song={song} />;
+        return <SongRow song={song} showAlbum={isPhone} />;
       case "album":
         return (
           <Text b size={14}>
