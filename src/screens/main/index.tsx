@@ -15,10 +15,10 @@ const Main = (): JSX.Element => {
       }}
     >
       <Grid.Container>
-        <Grid sm={4}>
+        <Grid sm={4} css={{"@smMax": {width: "100%"} }}>
           <Sidebar />
         </Grid>
-        <Grid sm={8}>
+        <Grid sm={8} css={{"@smMax": {width: "100%", display: "flex", justifyContent: "center"} }}>
           <PlaylistContainer />
         </Grid>
       </Grid.Container>

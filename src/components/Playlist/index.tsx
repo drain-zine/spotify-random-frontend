@@ -20,7 +20,7 @@ const PlaylistContainer = () => {
   const isPlaylistError = useSelector(selectIsPlaylistErrored);  const isTablet = useIsTablet();
 
   return (
-    <Container fluid css={{ padding: 0, margin: 0 }}>
+    <Container fluid css={{ padding: 0, margin: 0}}>
       <Row>
         <PlaylistMeta meta={playlistMeta} />
       </Row>
