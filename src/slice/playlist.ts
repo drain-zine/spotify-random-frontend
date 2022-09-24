@@ -3,6 +3,7 @@ import { AppState } from "../store";
 import { HYDRATE } from "next-redux-wrapper";
 import { Playlist, PlaylistMeta } from "../type";
 import { API } from "../api";
+import { generateDescription, generateName } from "../utils";
 
 // First, create the thunk
 export const getRandomPlaylist = createAsyncThunk(
@@ -14,18 +15,33 @@ export const getRandomPlaylist = createAsyncThunk(
   }
 );
 
+export const getRandomPlaylistMeta = createAsyncThunk(
+  "playlist/getRandomPlaylistMeta",
+  async () => {
+    const api = new API();
+    const image = await api.getRandomImage();
+    return {
+      name: generateName(),
+      description: generateDescription(),
+      image
+    }
+  }
+);
+
 export interface PlaylistState {
   playlist: Playlist;
   playlistMeta: PlaylistMeta;
 }
 
+const initialPlaylistMeta = {
+  name: "",
+  description: "",
+  image: "",
+};
+
 const initialState: PlaylistState = {
   playlist: [],
-  playlistMeta: {
-    name: "",
-    description: "",
-    image: "",
-  },
+  playlistMeta: initialPlaylistMeta
 };
 
 // Slice
@@ -53,6 +69,12 @@ export const playlistSlice = createSlice({
       return {
         ...state,
       };
+    });
+    builder.addCase(getRandomPlaylistMeta.pending, (state, action) => {
+      state.playlistMeta = initialPlaylistMeta;
+    });
+    builder.addCase(getRandomPlaylistMeta.fulfilled, (state, action) => {
+      state.playlistMeta = action.payload;
     });
   },
 });

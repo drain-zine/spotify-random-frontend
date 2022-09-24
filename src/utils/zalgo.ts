@@ -1,5 +1,3 @@
-import { convert } from "imagemagick-convert";
-
 const getRandom = (len: number) => {
   if (len == 1) return 0;
   return !!len ? Math.floor(Math.random() * len + 1) - 1 : Math.random();
@@ -162,6 +160,7 @@ export const splitToChunks = <Type>(array: Type[], parts: number): Type[][] => {
   }
   return result;
 };
+
 export const generateDescription = () => {
   const punctuation = [",", ".", "-"];
 
@@ -182,44 +181,5 @@ export const generateDescription = () => {
     } `;
   });
 
-  return description;
+  return description.join(" ");;
 };
-
-export const randomColor = () => {
-  return Math.floor(Math.random()*16777215).toString(16);
-}
-
-export const generateImage = async() => {
-  const imageIters = 35;
-  const imageScale = 220;
-
-  const id = "cover";
-  const colors = [...Array(3)].map(randomColor);
-
-    await convert({
-      width: 10,
-      height: 10,
-      
-    })
-    await ImageMagick.execute({
-      commands: [
-        `convert -size 10x10 xc:"#"${colors[0]}"" -fill "#"${colors[1]}"" -draw "rectangle 0,0 4,4" -fill "#"${colors[2]}"" -draw "rectangle 5,5 9,9"  ${id}.jpg`
-      ],
-  });
-
-  for(let j = 0; j < 3; j++){
-      for(let i = imageIters; i > 0; i++){
-          await execute({
-              commands: [
-                `convert ${id}.jpg -quality "${i}" ${id}.jpg`
-              ],
-          });
-      }
-
-      await execute({
-          commands: [
-            `convert ${id}.jpg -scale ${imageScale}% ${id}.jpg`
-          ],
-      });
-  }
-}

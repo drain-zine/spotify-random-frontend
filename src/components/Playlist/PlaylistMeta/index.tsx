@@ -7,12 +7,13 @@ import {
   Container,
   Button,
 } from "@nextui-org/react";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API } from "../../../api";
 import { useIsTablet } from "../../../hooks/useMediaQuery";
 import {
   getRandomPlaylist,
+  getRandomPlaylistMeta,
   selectIsPlaylistLoading,
   selectPlaylist,
 } from "../../../slice/playlist";
@@ -26,22 +27,23 @@ interface PlaylistMetaProps {
 }
 
 const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
+  const {name, description, image} = meta;
   const isPlaylistLoading = useSelector(selectIsPlaylistLoading);
   const dispatch = useDispatch<AppDispatch>();
-  const tempName = useMemo(() => generateName(), []);
-  const tempDescription = useMemo(() => generateDescription(), []).join(" ");
-  //const tempDescription = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non tempus ante, eu ullamcorper lorem.';
-  //const tempImgUrl = 'https://d3atsf3fgek2rw.cloudfront.net/content/uploads/2014/07/107-1002x1008.jpg';
-  const tempImgUrl =
-    "https://farm4.staticflickr.com/3851/14924040227_fe0a2ceb18.jpg";
   const playlist = useSelector(selectPlaylist);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isTablet = useIsTablet();
 
-  const createPlaylist = async () => {
+  const refreshPlaylist = useCallback(() => {
+    dispatch(getRandomPlaylist());
+    dispatch(getRandomPlaylistMeta());
+  }, [dispatch]);
+
+  const createPlaylist = useCallback(async () => {
     const popup = getAuthPopup(
       `${process.env.NEXT_PUBLIC_API_URL}/spotify/auth`
     );
+
     const popupWindow = popup.open();
     try {
       if (popupWindow === null) return false;
@@ -51,9 +53,9 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
       const rawToken = await popup.handleMessageCallback(popupWindow);
       const trackIds = playlist.map((song) => `spotify:track:${song.id}`);
       await api.createPlaylist(
-        tempName,
-        tempDescription,
-        tempImgUrl,
+        name,
+        description,
+        image,
         trackIds,
         (rawToken as any).token
       );
@@ -63,7 +65,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
       setIsSubmitting(false);
       return false;
     }
-  };
+  }, [name, image, description, playlist]);
 
   return (
     <Grid.Container
@@ -73,9 +75,9 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
         <Image
           height={300}
           width={300}
-          src={tempImgUrl}
+          src={image}
           showSkeleton
-          alt={`${tempName}-cover`}
+          alt={`${meta.name}-cover`}
         />
       </Grid>
       <Grid
@@ -95,11 +97,11 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
               }
           }}>
             <Text h3 size={32}>
-              {tempName}
+              {name}
             </Text>
           </Row>
           <Row>
-            <Text size={16}>{tempDescription}</Text>
+            <Text size={16}>{description}</Text>
           </Row>
           <Row
             css={{
@@ -113,7 +115,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
             }}
           >
             <Button
-              onClick={() => dispatch(getRandomPlaylist())}
+              onClick={() => refreshPlaylist()}
               disabled={isPlaylistLoading}
               auto
               bordered

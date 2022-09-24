@@ -37,4 +37,10 @@ export class API {
     });
     return res.data;
   }
+
+  public async getRandomImage(){
+    const res = await this.axios.get('/playlist-meta/image');
+    return res.data;
+  }
+
 }
