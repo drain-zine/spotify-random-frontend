@@ -76,7 +76,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
 
   return (
     <Grid.Container
-      css={{ marginTop: isTablet ? "25vh" : "15vh", "@mdMax": { padding: "0 var(--nextui-space-sm)"}, "@xsMax": { justifyContent: "center" } }}
+      css={{ "@smMin": { marginTop: isTablet ? "25vh" : "15vh" }, "@mdMax": { padding: "0 var(--nextui-space-sm)"}, "@smMax": { justifyContent: "center", marginTop: "$20" }}}
     >
       <Grid md={4} css={{minWidth: 300, position: "relative"}}>
             <Image
@@ -94,11 +94,11 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
         md={6}
         justify="center"
         alignItems="center"
-        css={{ position: "relative", "@xsMax": { marginTop: "$4" } }}
+        css={{ position: "relative", "@smMax": { marginTop: "$4", maxWidth: 350 }, "@smMin": { maxWidth: "calc(100% - 300px)"} }}
       >
-        <Container css={{"@mdMax": { padding: 0}}}>
+        <Container css={{"@smMax": { padding: 0}}}>
           <Row css={{
-              "@xsMax": {
+              "@smMax": {
                   margin: "$5 0",
                   justifyContent: "center"
               },
@@ -117,7 +117,8 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
             css={{
               display: "flex",
               marginTop: "$12",
-              "@mdMin": {
+              justifyContent: "center",
+              "@smMin": {
                 position: "absolute",
                 bottom: "0",
                 left: "1.5rem",

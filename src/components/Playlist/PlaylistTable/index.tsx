@@ -109,6 +109,10 @@ const PlaylistTable = ({ playlist }: PlaylistTableProps): JSX.Element => {
       aria-label="Random Spotify Playlist"
       css={{
         tableLayout: "fixed",
+        "@smMin": {
+          paddingLeft: 0,
+          paddingRight: 0
+        }
       }}
       containerCss={{
         minWidth: "100%",
