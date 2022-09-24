@@ -1,0 +1,8 @@
+{
+    "md": "/favicon-32x32.png",
+    "sm": "/favicon-16x16.png",
+    "lg": "/android-chrome-192x192.png",
+    "xl": "/android-chrome-512x512.png",
+    "appleTouchIcon": "/apple-touch-icon.png",
+    "manifest": "/site.webmanifest"
+}

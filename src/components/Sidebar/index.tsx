@@ -7,7 +7,7 @@ const { motion, useScroll, useSpring } = require("framer-motion");
 const Sidebar = () => {
   const { scrollYProgress } = useScroll();
   const isPlaylistLoading = useSelector(selectIsPlaylistLoading);
-  const [test, setTest] = useState(0);
+  const [scrollHoist, setScrollHoist] = useState(0);
   const scrollY = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -16,16 +16,16 @@ const Sidebar = () => {
 
   useEffect(() => {
     return scrollY.onChange((latest: number) =>
-      setTest(isPlaylistLoading ? 0 : latest * 100)
+      setScrollHoist(isPlaylistLoading ? 0 : latest * 100)
     );
   }, [isPlaylistLoading]);
 
-  console.log(test);
+  console.log(scrollHoist);
   return (
     <Container css={{ position: "relative" }}>
       <motion.div
         style={{
-          height: `${test}%`,
+          height: `${scrollHoist}%`,
           width: 1,
           position: "absolute",
           transform: "translate(-50%)",
