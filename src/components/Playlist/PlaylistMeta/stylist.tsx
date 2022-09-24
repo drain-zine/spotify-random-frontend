@@ -15,6 +15,8 @@ const pulseColor = keyframes({
 // Skeleton
 export const ImageSkeleton = styled("div", {
     position: "absolute",
+    top: 0,
+    left: 0,
     width: 300,
     height: 300,
     backgroundColor: "$gray50",

@@ -78,7 +78,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
     <Grid.Container
       css={{ marginTop: isTablet ? "25vh" : "15vh", "@mdMax": { padding: "0 var(--nextui-space-sm)"}, "@xsMax": { justifyContent: "center" } }}
     >
-      <Grid md={4} css={{minWidth: 300}}>
+      <Grid md={4} css={{minWidth: 300, position: "relative"}}>
             <Image
             height={300}
             width={300}
