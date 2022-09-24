@@ -11,6 +11,7 @@ import { useCallback, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API } from "../../../api";
 import { useIsTablet } from "../../../hooks/useMediaQuery";
+import { setIsPlayingUrl } from "../../../slice/audio";
 import {
   getRandomPlaylist,
   getRandomPlaylistMeta,
@@ -19,7 +20,6 @@ import {
 } from "../../../slice/playlist";
 import { AppDispatch } from "../../../store";
 import { PlaylistMeta } from "../../../type";
-import { generateDescription, generateName } from "../../../utils";
 import { getAuthPopup } from "../../../utils/getAuthPopup";
 
 interface PlaylistMetaProps {
@@ -37,6 +37,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
   const refreshPlaylist = useCallback(() => {
     dispatch(getRandomPlaylist());
     dispatch(getRandomPlaylistMeta());
+    dispatch(setIsPlayingUrl(""));
   }, [dispatch]);
 
   const createPlaylist = useCallback(async () => {
