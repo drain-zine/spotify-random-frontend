@@ -17,27 +17,39 @@ import {
   getRandomPlaylistMeta,
   selectIsPlaylistErrored,
   selectIsPlaylistLoading,
+  selectIsPlaylistMetaLoading,
   selectPlaylist,
 } from "@redux/slice/playlist";
 import { AppDispatch } from "@redux/store";
 import { PlaylistMeta } from "@type";
 import { getAuthPopup } from "@utils";
 import { ImageSkeleton } from "./stylist";
+import { useEffect } from "react";
 
 interface PlaylistMetaProps {
   meta: PlaylistMeta;
 }
 
 const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
-  const {name, description, image} = meta;
   const isPlaylistLoading = useSelector(selectIsPlaylistLoading);
   const isPlaylistErrored = useSelector(selectIsPlaylistErrored);
+  const isPlaylistMetaLoading = useSelector(selectIsPlaylistMetaLoading);
+
   const dispatch = useDispatch<AppDispatch>();
   const playlist = useSelector(selectPlaylist);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [prevMeta, setPrevMeta] = useState(meta);
   const isTablet = useIsTablet();
 
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+  useEffect(() => {
+    if(meta.name !== '' && meta.description !== '' && meta.image !== ''){
+      setPrevMeta(meta);
+    }else{
+      setPrevMeta
+    }
+  }, [meta]);
 
   const refreshPlaylist = useCallback(() => {
     setIsImageLoaded(false);
@@ -56,6 +68,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
       if (popupWindow === null) return false;
       setIsSubmitting(true);
       const api = new API();
+      const { name, description, image} = prevMeta;
 
       const rawToken = await popup.handleMessageCallback(popupWindow);
       const trackIds = playlist.map((song) => `spotify:track:${song.id}`);
@@ -72,7 +85,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
       setIsSubmitting(false);
       return false;
     }
-  }, [name, image, description, playlist]);
+  }, [prevMeta, playlist]);
 
   return (
     <Grid.Container
@@ -82,8 +95,8 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
             <Image
             height={300}
             width={300}
-            src={image}
-            alt={`${meta.name}-cover`}
+            src={prevMeta.image}
+            alt={`${prevMeta.name}-cover`}
             onLoad={() => setIsImageLoaded(true)} />
           
             {!isImageLoaded && <ImageSkeleton/> }
@@ -98,6 +111,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
       >
         <Container css={{"@smMax": { padding: 0}}}>
           <Row css={{
+              opacity: isPlaylistMetaLoading ? 0 : 1,
               "@smMax": {
                   margin: "$5 0",
                   justifyContent: "center"
@@ -107,11 +121,13 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
               }
           }}>
             <Text h3 size={32}>
-              {name}
+              {prevMeta.name}
             </Text>
           </Row>
-          <Row>
-            <Text size={16}>{description}</Text>
+          <Row css={{
+            opacity: isPlaylistMetaLoading ? 0 : 1,
+          }}>
+            <Text size={16}>{prevMeta.description}</Text>
           </Row>
           <Row
             css={{

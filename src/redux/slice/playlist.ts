@@ -97,6 +97,10 @@ export const selectPlaylistMeta = (state: AppState) =>
   state.playlist.playlistMeta;
 export const selectIsPlaylistLoading = (state: AppState) =>
   state.playlist.playlist.length === 0;
+export const selectIsPlaylistMetaLoading = (state: AppState) =>
+  state.playlist.playlistMeta.name === '' ||
+  state.playlist.playlistMeta.description === '' ||
+  state.playlist.playlistMeta.image === '' ;
 
 export const selectIsPlaylistErrored = (state: AppState) => state.playlist.playlistError;  
 export default playlistSlice.reducer;
