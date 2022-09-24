@@ -1,5 +1,5 @@
-import { useTheme } from "@nextui-org/react";
-import { useState, useCallback, useEffect } from "react";
+import { useTheme } from '@nextui-org/react';
+import { useState, useCallback, useEffect } from 'react';
 
 export const useMediaQuery = (breakpoint: string) => {
   const [targetReached, setTargetReached] = useState(false);
@@ -12,12 +12,12 @@ export const useMediaQuery = (breakpoint: string) => {
   }, []);
   useEffect(() => {
     const media = window.matchMedia(`(max-width: ${breakpoint})`);
-    media.addEventListener("change", updateTarget);
+    media.addEventListener('change', updateTarget);
     // Check on mount (callback is not called until a change occurs)
     if (media.matches) {
       setTargetReached(true);
     }
-    return () => media.removeEventListener("change", updateTarget);
+    return () => media.removeEventListener('change', updateTarget);
   }, []);
   return targetReached;
 };
@@ -29,7 +29,6 @@ export const useIsPhone = () => {
 
 // Detect landscape tablet
 export const useIsTablet = () => {
-    const theme = useTheme();
-    return useMediaQuery(theme.theme?.breakpoints.md.value as string);
-  };
-  
+  const theme = useTheme();
+  return useMediaQuery(theme.theme?.breakpoints.md.value as string);
+};

@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { AppState } from "../store";
-import { HYDRATE } from "next-redux-wrapper";
+import { createSlice } from '@reduxjs/toolkit';
+import { AppState } from '../store';
+import { HYDRATE } from 'next-redux-wrapper';
 
 // Type for our state
 export interface AudioState {
@@ -9,12 +9,12 @@ export interface AudioState {
 
 // Initial state
 const initialState: AudioState = {
-  isPlayingUrl: "",
+  isPlayingUrl: '',
 };
 
 // Slice
 export const audioSlice = createSlice({
-  name: "audio",
+  name: 'audio',
   initialState,
   reducers: {
     // Action to set isPlayingUrl

@@ -1,7 +1,7 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import { audioSlice } from "../slice/audio";
-import { playlistSlice } from "../slice/playlist";
-import { createWrapper } from "next-redux-wrapper";
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { audioSlice } from '../slice/audio';
+import { playlistSlice } from '../slice/playlist';
+import { createWrapper } from 'next-redux-wrapper';
 
 const makeStore = () =>
   configureStore({
@@ -13,7 +13,7 @@ const makeStore = () =>
   });
 
 export type AppStore = ReturnType<typeof makeStore>;
-export type AppState = ReturnType<AppStore["getState"]>;
+export type AppState = ReturnType<AppStore['getState']>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   AppState,
@@ -21,6 +21,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action
 >;
 
-export type AppDispatch = AppStore["dispatch"];
+export type AppDispatch = AppStore['dispatch'];
 
 export const wrapper = createWrapper<AppStore>(makeStore);

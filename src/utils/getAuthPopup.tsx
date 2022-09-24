@@ -20,7 +20,7 @@ export const getAuthPopup = (url: string) => {
   const handleMessageCallback = (authWindow: Window) =>
     new Promise((resolve, reject) => {
       eventer(
-        "message",
+        'message',
         (e) => {
           if (authWindow) {
             if (e.data.auth) {
@@ -28,22 +28,22 @@ export const getAuthPopup = (url: string) => {
               resolve(e.data.auth);
             } else {
               authWindow.close();
-              reject("Unauthorised");
+              reject('Unauthorised');
             }
           }
         },
-        false
+        false,
       );
 
       setInterval(() => {
         if (authWindow.closed) {
-          reject("Window Closed");
+          reject('Window Closed');
         }
       }, 200);
     });
 
   return {
-    open: () => window.open(url, "Authenticate", windowOpts),
+    open: () => window.open(url, 'Authenticate', windowOpts),
     handleMessageCallback: (authWindow: Window) =>
       handleMessageCallback(authWindow),
   };

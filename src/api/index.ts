@@ -1,5 +1,5 @@
-import axios from "axios";
-import { Song, Playlist } from "../type";
+import axios from 'axios';
+import { Song, Playlist } from '../type';
 
 export class API {
   private readonly baseURL = process.env.NEXT_PUBLIC_API_URL;
@@ -10,13 +10,13 @@ export class API {
   constructor() {}
 
   public async getRandomSong(): Promise<Song> {
-    const res = await this.axios.get("/spotify/song");
+    const res = await this.axios.get('/spotify/song');
     return res.data;
   }
 
   public async getRandomPlaylist(n?: number): Promise<Playlist> {
     const res = await this.axios.get(
-      `/spotify/playlist${n !== undefined ? `?n=${n}` : ``}`
+      `/spotify/playlist${n !== undefined ? `?n=${n}` : ``}`,
     );
     return res.data;
   }
@@ -26,7 +26,7 @@ export class API {
     description: string,
     imageUrl: string,
     trackIds: string[],
-    token: string
+    token: string,
   ) {
     const res = await this.axios.post(`/spotify/create-playlist`, {
       title,
@@ -38,9 +38,8 @@ export class API {
     return res.data;
   }
 
-  public async getRandomImage(){
+  public async getRandomImage() {
     const res = await this.axios.get('/playlist-meta/image');
     return res.data;
   }
-
 }

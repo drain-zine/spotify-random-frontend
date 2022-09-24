@@ -1,31 +1,31 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AppState } from "../store";
-import { HYDRATE } from "next-redux-wrapper";
-import { Playlist, PlaylistMeta } from "../type";
-import { API } from "../api";
-import { generateDescription, generateName } from "../utils";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { AppState } from '../store';
+import { HYDRATE } from 'next-redux-wrapper';
+import { Playlist, PlaylistMeta } from '../type';
+import { API } from '../api';
+import { generateDescription, generateName } from '../utils';
 
 // First, create the thunk
 export const getRandomPlaylist = createAsyncThunk(
-  "playlist/getRandomPlaylist",
+  'playlist/getRandomPlaylist',
   async () => {
     const api = new API();
     const response = await api.getRandomPlaylist();
     return response;
-  }
+  },
 );
 
 export const getRandomPlaylistMeta = createAsyncThunk(
-  "playlist/getRandomPlaylistMeta",
+  'playlist/getRandomPlaylistMeta',
   async () => {
     const api = new API();
     const image = await api.getRandomImage();
     return {
       name: generateName(),
       description: generateDescription(),
-      image
-    }
-  }
+      image,
+    };
+  },
 );
 
 export interface PlaylistState {
@@ -34,19 +34,19 @@ export interface PlaylistState {
 }
 
 const initialPlaylistMeta = {
-  name: "",
-  description: "",
-  image: "",
+  name: '',
+  description: '',
+  image: '',
 };
 
 const initialState: PlaylistState = {
   playlist: [],
-  playlistMeta: initialPlaylistMeta
+  playlistMeta: initialPlaylistMeta,
 };
 
 // Slice
 export const playlistSlice = createSlice({
-  name: "playlist",
+  name: 'playlist',
   initialState,
   reducers: {
     setPlaylist(state, action) {
