@@ -27,7 +27,7 @@ const PlaylistContainer = () => {
       <Spacer y={ isTablet ? 1 : 2} />
       <Row css={{justifyContent: isPlaylistLoading && isPlaylistError ? "center": undefined}}>
         {isPlaylistLoading ? isPlaylistError ? 
-          <Text>{content.errorMsg}</Text> :
+          <Text css={{marginTop: "$8"}}>{content.errorMsg}</Text> :
           <Loading css={{ left: "50%", marginTop: "15vh" }} /> :
           <PlaylistTable playlist={playlist as Playlist} />
         }
