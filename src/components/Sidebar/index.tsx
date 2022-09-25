@@ -2,7 +2,7 @@ import { Container, Row, Text } from '@nextui-org/react';
 import ScrollableLine from '@components/ScrollableLine';
 import { useIsTablet } from '@hooks/useMediaQuery';
 import { Divider } from './styling';
-import { content } from '@data/content';
+import { title, content } from '@data/content';
 
 const Sidebar = () => {
   const isTabletPortrait = useIsTablet(false, false);
@@ -12,7 +12,7 @@ const Sidebar = () => {
       {isTabletPortrait && <ScrollableLine />}
       <Row>
         <Text h1 size={60}>
-          Playlist of Babel
+          {title}
         </Text>
       </Row>
       <Divider />

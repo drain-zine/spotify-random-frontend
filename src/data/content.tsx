@@ -1,5 +1,6 @@
 import InlineLink from '@components/InlineLink';
 
+export const title = 'Playlist of Babel';
 export const content = {
   sidebarMain: [
     'The internet has come to define the 21st century. Exploding from web1 & 2, we have moved beyond minor nodes of culture and into a vast beyond, a cybernetic Styx impassable without Charon. Big Tech has turned to Big Data as a means of curation - collecting and analysing a user’s preferences from hundreds of thousands of data points to provide video and song recommendations that will yield maximum user retention, and ad revenue. A person’s taste is mapped as an nDim surface in a feature space parameterised by n metrics collected, derived and inferred from user interactions with served media, as well as their hisotircal patterns of interaction.',
