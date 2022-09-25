@@ -52,9 +52,7 @@ const PlaylistTable = ({ playlist }: PlaylistTableProps): JSX.Element => {
             <Row align="center">
               <Tooltip
                 trigger={'click'}
-                content={
-                  "Spotify's Internal popularity metric. I have no idea what it means"
-                }
+                content={"Spotify's Internal popularity metric."}
               >
                 POPL*
               </Tooltip>

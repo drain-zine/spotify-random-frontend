@@ -43,6 +43,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
 
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
+  // Keep old meta to stop dom resizing
   useEffect(() => {
     if (meta.name !== '' && meta.description !== '' && meta.image !== '') {
       setPrevMeta(meta);
@@ -101,6 +102,9 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
           width={300}
           src={prevMeta.image}
           alt={`${prevMeta.name}-cover`}
+          css={{
+            opacity: isPlaylistMetaLoading ? 0 : 1,
+          }}
           onLoad={() => setIsImageLoaded(true)}
         />
 
