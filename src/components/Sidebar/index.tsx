@@ -16,7 +16,7 @@ const Sidebar = () => {
         </Text>
       </Row>
       <Divider />
-      {content.sidebarMain.map((paragraph: string) => (
+      {content.sidebarMain.map((paragraph: string | JSX.Element) => (
         <Row css={{ marginTop: '$5' }}>
           <Text size={16}>{paragraph}</Text>
         </Row>
