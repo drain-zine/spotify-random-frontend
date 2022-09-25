@@ -1,4 +1,4 @@
-import { Link } from '@nextui-org/react';
+import InlineLink from '@components/InlineLink';
 
 export const content = {
   sidebarMain: [
@@ -11,47 +11,30 @@ export const content = {
       each suggestion’s recommendation prior is increased as its CTR, user
       interaction and retention increases also. Manual digital curation through
       forums and communities such as{' '}
-      <Link color="warning" href="https://rateyourmusic.com/">
-        RYM
-      </Link>
-      ,{' '}
-      <Link color="warning" href="https://boards.4channel.org/mu/">
-        /mu/
-      </Link>{' '}
-      and{' '}
-      <Link
-        color="warning"
-        href="http://www.wecb.fm/milkcrate/patricianmusicchartposting"
-      >
+      <InlineLink href="https://rateyourmusic.com/">RYM</InlineLink>,{' '}
+      <InlineLink href="https://boards.4channel.org/mu/">/mu/</InlineLink> and{' '}
+      <InlineLink href="http://www.wecb.fm/milkcrate/patricianmusicchartposting">
         PMC
-      </Link>{' '}
+      </InlineLink>{' '}
       formed proto-algorithmic taste clusters, only to be subsumed by digitally
       accelerated, platform centric, and community decentralised micro-genres
       such as{' '}
-      <Link
-        color="warning"
-        href="https://rateyourmusic.com/list/g_crowley/youtube-recommendation-core/"
-      >
+      <InlineLink href="https://rateyourmusic.com/list/g_crowley/youtube-recommendation-core/">
         Youtube Recommended Core
-      </Link>{' '}
+      </InlineLink>{' '}
       and{' '}
-      <Link
-        color="warning"
-        href="https://thebaffler.com/salvos/the-problem-with-muzak-pelly"
-      >
+      <InlineLink href="https://thebaffler.com/salvos/the-problem-with-muzak-pelly">
         Spotify Muzak
-      </Link>
+      </InlineLink>
       . Everything we listen to has been optimised for us, and for everyone
-      else.'
+      else.
     </>,
     'This tool utilises Spotify’s public API as an exercise of non-curation. Ten, truerandom tracks are retrieved from their database and assembled into a playlist unique for you, and completely uninfluenced by you.  You can listen to a preview of each track by clicking their cover.',
   ],
   sidebarFooter: (
     <>
       This website was inspired in part by{' '}
-      <Link color="warning" href="https://petittube.com/">
-        Petite Tube
-      </Link>
+      <InlineLink href="https://petittube.com/">Petite Tube</InlineLink>
     </>
   ),
   errorMsg:
