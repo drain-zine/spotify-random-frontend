@@ -116,6 +116,7 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
         alignItems="center"
         css={{
           position: 'relative',
+          '@xsMax': { maxWidth: 300 },
           '@smMax': { marginTop: '$4', maxWidth: 350 },
           '@smMin': { maxWidth: 'calc(100% - 300px)' },
         }}
