@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { NextUIProvider, createTheme } from '@nextui-org/react';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 const lightTheme = createTheme({
   type: 'light',
@@ -37,7 +38,18 @@ const darkTheme = createTheme({
 });
 
 const NextUITheme = ({ children }: { children: ReactNode }) => {
-  return <NextUIProvider theme={darkTheme}>{children}</NextUIProvider>;
+  return (
+    <NextThemesProvider
+      defaultTheme="dark"
+      attribute="class"
+      value={{
+        light: lightTheme.className,
+        dark: darkTheme.className,
+      }}
+    >
+      <NextUIProvider>{children}</NextUIProvider>
+    </NextThemesProvider>
+  );
 };
 
 export default NextUITheme;
