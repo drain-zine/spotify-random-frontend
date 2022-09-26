@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectIsPlaylistLoading } from '@redux/slice/playlist';
 const { motion, useScroll, useSpring } = require('framer-motion');
 
 const ScrollableLine = () => {
   const { scrollYProgress } = useScroll();
-  const isPlaylistLoading = useSelector(selectIsPlaylistLoading);
   const [scrollHoist, setScrollHoist] = useState(0);
   const scrollY = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -14,10 +11,8 @@ const ScrollableLine = () => {
   });
 
   useEffect(() => {
-    return scrollY.onChange((latest: number) =>
-      setScrollHoist(isPlaylistLoading ? 0 : latest * 100),
-    );
-  }, [isPlaylistLoading]);
+    return scrollY.onChange((latest: number) => setScrollHoist(latest * 100));
+  }, []);
 
   return (
     <motion.div
