@@ -26,7 +26,10 @@ const Home = (): JSX.Element => {
         <link rel="canonical" href={meta.canonicalUrl} />
         <meta name="author" content={meta.author} />
         <meta name="email" content={meta.email} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
