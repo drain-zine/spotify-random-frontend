@@ -34,7 +34,7 @@ const PlaylistContainer = () => {
       >
         {isPlaylistLoading ? (
           isPlaylistError ? (
-            <Text css={{ marginTop: '$8' }}>{content.errorMsg}</Text>
+            <Text css={{ margin: '15vh 0' }}>{content.errorMsg}</Text>
           ) : (
             <Loading css={{ left: '50%', margin: '15vh 0' }} />
           )
