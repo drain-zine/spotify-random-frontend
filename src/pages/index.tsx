@@ -53,6 +53,23 @@ const Home = (): JSX.Element => {
         <meta property="og:description" content={meta.description} />
         <meta property="og:image" content={meta.ogImage} />
         <meta property="og:url" content={meta.canonicalUrl} />
+
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+              page_path: window.location.pathname,
+            });
+          `,
+          }}
+        />
       </Head>
       <Main />
     </>

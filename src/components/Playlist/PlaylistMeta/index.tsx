@@ -7,7 +7,7 @@ import {
   Container,
   Button,
 } from '@nextui-org/react';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { API } from '@api';
 import { useIsTablet } from '@hooks/useMediaQuery';
@@ -22,7 +22,7 @@ import {
 } from '@redux/slice/playlist';
 import { AppDispatch } from '@redux/store';
 import { PlaylistMeta } from '@type';
-import { getAuthPopup } from '@utils';
+import { getAuthPopup, event } from '@utils';
 import { ImageSkeleton } from './stylist';
 import { useEffect } from 'react';
 
@@ -57,6 +57,9 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
     dispatch(getRandomPlaylist());
     dispatch(getRandomPlaylistMeta());
     dispatch(setIsPlayingUrl(''));
+    event({
+      action: 'refresh_playlist',
+    });
   }, [dispatch]);
 
   const createPlaylist = useCallback(async () => {
@@ -80,10 +83,22 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
         trackIds,
         (rawToken as any).token,
       );
+      event({
+        action: 'create_playlist',
+        params: {
+          succes: true,
+        },
+      });
       setIsSubmitting(false);
       return true;
     } catch {
       setIsSubmitting(false);
+      event({
+        action: 'create_playlist',
+        params: {
+          succes: false,
+        },
+      });
       return false;
     }
   }, [prevMeta, playlist]);
