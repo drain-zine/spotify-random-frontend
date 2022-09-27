@@ -11,7 +11,7 @@ export const event = ({
   params,
 }: {
   action: string;
-  params?: Record<string, unknown>;
+  params?: object;
 }) => {
   (window as any).gtag('event', action, params);
 };

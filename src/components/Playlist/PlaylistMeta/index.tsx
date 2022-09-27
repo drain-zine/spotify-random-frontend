@@ -59,6 +59,10 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
     dispatch(setIsPlayingUrl(''));
     event({
       action: 'refresh_playlist',
+      params: {
+        event_label: 'interactions',
+        value: 1,
+      },
     });
   }, [dispatch]);
 
@@ -86,7 +90,8 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
       event({
         action: 'create_playlist',
         params: {
-          succes: true,
+          event_label: 'interactions',
+          value: 1,
         },
       });
       setIsSubmitting(false);
@@ -96,7 +101,8 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
       event({
         action: 'create_playlist',
         params: {
-          succes: false,
+          event_label: 'interactions',
+          value: 0,
         },
       });
       return false;
@@ -118,12 +124,12 @@ const PlaylistMeta = ({ meta }: PlaylistMetaProps) => {
           src={prevMeta.image}
           alt={`${prevMeta.name}-cover`}
           css={{
-            opacity: isPlaylistMetaLoading ? 0 : 1,
+            opacity: isPlaylistMetaLoading && isPlaylistLoading ? 0 : 1,
           }}
           onLoad={() => setIsImageLoaded(true)}
         />
 
-        {!isImageLoaded && <ImageSkeleton />}
+        {!isImageLoaded && isPlaylistLoading && <ImageSkeleton />}
       </Grid>
       <Grid
         md={6}

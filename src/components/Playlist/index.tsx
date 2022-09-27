@@ -33,17 +33,15 @@ const PlaylistContainer = () => {
         }}
       >
         {isPlaylistLoading ? (
-          isPlaylistError ? (
-            <Text css={{ margin: '15vh 0' }}>{content.errorMsg}</Text>
-          ) : (
-            <Loading
-              css={{
-                left: '50%',
-                transform: 'translate(-50%, 0)',
-                margin: '15vh 0',
-              }}
-            />
-          )
+          <Loading
+            css={{
+              left: '50%',
+              transform: 'translate(-50%, 0)',
+              margin: '15vh 0',
+            }}
+          />
+        ) : isPlaylistError ? (
+          <Text css={{ margin: '15vh 0' }}>{content.errorMsg}</Text>
         ) : (
           <PlaylistTable playlist={playlist as Playlist} />
         )}
